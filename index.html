@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>听见校园｜隐私优先的声景地图 · 作品编号 400552</title>
+<style>
+:root{
+  --bg:#e5edf0;--paper:#f7faf9;--ink:#18313a;--muted:#63777d;--line:#c4d2d4;
+  --teal:#0b837e;--lime:#8aa63f;--orange:#df795a;--danger:#a4382a;
+  --grid:#d5e2df;--panel:#eaf2ef;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Segoe UI","Microsoft YaHei",sans-serif}
+.wrap{max-width:1160px;margin:auto;padding:0 22px}
+.top{height:62px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
+.brand{font-weight:800;color:var(--teal);letter-spacing:.15em;text-decoration:none}
+.topactions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.back{color:var(--muted);text-decoration:none}
+.hero{padding:29px 0 16px}
+.k{font:11px ui-monospace,monospace;letter-spacing:.16em;color:var(--teal)}
+h1{font-size:clamp(31px,4.6vw,48px);line-height:1.06;margin:8px 0}
+.hero p{color:var(--muted);max-width:760px;margin:0}
+
+/* 隐私面板（醒目入口） */
+.privacyband{margin:0 0 14px;background:#e3f0ec;border:1px solid #9fc3bd;border-left:6px solid var(--teal);border-radius:14px;padding:14px 16px}
+.pb-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.pb-head b{font-size:15px;color:#0d5f5b}
+.pb-head .sub{font:10px ui-monospace,monospace;color:#4b6f6c;letter-spacing:.08em;margin-left:8px}
+.pb-list{margin:10px 0 0;padding-left:18px;font-size:11.5px;color:#33585c}
+.pb-list li{margin:3px 0}
+details.pb-more{margin-top:9px;font-size:11px;color:#33585c}
+details.pb-more summary{cursor:pointer;color:#0d5f5b;font-weight:700;font-size:11.5px;padding:4px 0}
+details.pb-more p{margin:8px 0 0;line-height:1.7;color:#3d6165}
+
+.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;padding:4px 0 42px;align-items:start}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 10px 22px #153a4310}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line);font-size:12px}
+.status{color:var(--teal);font:10px ui-monospace,monospace}
+.wavearea{padding:16px}
+.big{display:flex;align-items:baseline;gap:9px;margin-bottom:10px}
+.big b{font:52px Georgia,serif;color:var(--teal);line-height:1}
+.big span{font-size:11px;color:var(--muted)}
+
+/* 选项卡 */
+.tablist{display:flex;gap:6px;padding:10px 16px 0;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:#f1f6f4;border-radius:9px 9px 0 0;color:#3c5f62;padding:8px 12px;font-size:11.5px;cursor:pointer;border-bottom:none}
+.tab[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:700}
+.tabpanel{padding:12px 16px 16px}
+canvas{display:block;width:100%;height:238px;background:var(--panel);border:1px solid #cfddda;border-radius:10px}
+.axis{display:flex;justify-content:space-between;font:9px ui-monospace,monospace;color:var(--muted);margin-top:6px}
+.dists{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.tag{border:1px solid var(--line);background:#edf4f1;border-radius:99px;padding:5px 9px;font-size:10px;color:#446064}
+.note{margin:0;padding:12px 16px 16px;font-size:10.5px;color:var(--muted);line-height:1.7}
+.note b{color:#33585c}
+.scenestats{margin:10px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px;font:10.5px ui-monospace,monospace;color:#3d6165}
+.scenestats li{border:1px solid var(--line);background:#f1f6f4;border-radius:8px;padding:6px 8px}
+
+.side{padding:16px}
+.side h2{font-size:15.5px;margin:0 0 4px}
+.side .hint{color:var(--muted);font-size:11px;margin:0}
+.side h2.sec{margin-top:14px}
+.btns{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0}
+.btn{border:1px solid #9ab8b7;background:#fff;border-radius:9px;color:#1f4649;padding:9px 11px;font-size:11.5px;cursor:pointer;font-family:inherit}
+.btn.primary{background:var(--teal);border-color:var(--teal);color:#fff}
+.btn.warn{color:#8e3927;border-color:#dcaa9b}
+.btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
+.btn.small{padding:6px 9px;font-size:10.5px}
+.btn:hover{filter:brightness(.96)}
+.privacy{margin-top:13px;padding:11px;background:#e6f1ed;border-left:3px solid var(--teal);border-radius:0 8px 8px 0;font-size:10.5px;color:#50686b;line-height:1.7}
+.privacy b{color:#33585c}
+.live{min-height:20px;color:#a64f38;font-size:10.5px;margin-top:6px}
+.form{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:10px}
+.form label{display:grid;gap:4px;font-size:10.5px;color:var(--muted)}
+select,input[type=text]{min-width:0;border:1px solid var(--line);border-radius:8px;padding:8px 9px;font:inherit;font-size:12px;background:#fff;color:var(--ink)}
+.annot{display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:7px}
+.list{display:grid;gap:7px;margin:12px 0;max-height:250px;overflow:auto}
+.row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:9px;background:#f1f6f4;padding:9px 10px}
+.row .main{font-size:11.5px;min-width:0;overflow-wrap:anywhere}
+.row .meta{display:block;color:var(--muted);font:9.5px ui-monospace,monospace;margin-top:3px}
+.row .emptytext{font-size:11px;color:var(--muted)}
+/* 示例数据标记：用形状+文字，不依赖颜色传达含义 */
+.badge{display:inline-block;border:1px solid #9ab8b7;background:#e3f0ec;color:#0d5f5b;border-radius:99px;padding:1px 6px;font:9px ui-monospace,monospace;margin-right:6px;vertical-align:1px}
+.demohint{margin:6px 0 0;font-size:10.5px;color:var(--muted);line-height:1.6}
+
+/* 抽屉 */
+.scrim{position:fixed;inset:0;background:#0d2a2e59;z-index:40}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(560px,92vw);background:var(--paper);border-left:1px solid var(--line);z-index:41;display:flex;flex-direction:column;box-shadow:-14px 0 34px #12333922}
+.drawer[hidden]{display:none}
+.dhead{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid var(--line)}
+.dhead h2{margin:0;font-size:16px}
+.dbody{overflow:auto;padding:6px 18px 26px}
+.dbody section{border-bottom:1px dashed var(--line);padding:12px 0}
+.dbody section:last-child{border-bottom:none}
+.dbody h3{margin:0 0 6px;font-size:12.5px;color:var(--teal);letter-spacing:.04em}
+.dbody p,.dbody li{font-size:11.5px;color:#3d6165;line-height:1.75;margin:4px 0}
+.dbody ol,.dbody ul{margin:4px 0;padding-left:20px}
+.todo{color:#8e3927;font-weight:700}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr}
+  .wrap{padding:0 14px}
+  .wavearea,.tabpanel{padding:12px}
+  canvas{height:210px}
+  .form{grid-template-columns:1fr}
+  .top{height:auto;padding:12px 0;flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="brand">FIELD / 06</span>
+    <nav class="topactions">
+      <button class="btn small" id="privacyJump">隐私面板</button>
+      <button class="btn small primary" id="openInfo">作品说明</button>
+      
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="k">DIGITAL ART · INTERACTIVE DATA VISUALIZATION</div>
+    <h1>听见校园：隐私优先的声景地图</h1>
+    <p>把校园里的“安静、交谈、流动”转成可以观察和注释的视觉节奏。你可以先用合成样例体验，也可以授权本机麦克风做实时本地分析；标注与导出只留下相对强度和文字，不留下声音。</p>
+  </section>
+
+  <!-- 隐私面板：醒目入口 -->
+  <section class="privacyband" id="privacyPanel" aria-labelledby="privacyTitle">
+    <div class="pb-head">
+      <div><b id="privacyTitle">隐私面板</b><span class="sub">不录制 · 不上传 · 不保存原始音频</span></div>
+      <button class="btn danger" id="stopMic">立即停止并释放麦克风</button>
+    </div>
+    <ul class="pb-list">
+      <li>麦克风音频只在当前浏览器内实时分析，用于换算相对强度，不写入文件、不发往任何服务器。</li>
+      <li>本作品不识别、不推断说话者身份，不做语音转写与说话人辨认。</li>
+      <li>导出的 CSV / JSON 只含时段、场景、来源、相对强度与观察文字，不含任何音频内容。</li>
+      <li>相对强度是 0–100 的相对值，不是校准分贝，不能作为噪声达标或健康影响结论。</li>
+      <li>记录仅保存在当前页面内存中，刷新或关闭页面即清除。</li>
+    </ul>
+    <details class="pb-more">
+      <summary>展开完整隐私与边界说明</summary>
+      <p><b>处理位置。</b>全部处理发生在你自己的设备上：Web Audio API 在本机读取音频振幅，按短时窗口换算为相对强度，随后该窗口的振幅数据即被下一次采样覆盖，不做留存。</p>
+      <p><b>身份与内容。</b>程序只使用振幅的统计量，不分析语音内容，不识别或推断说话者身份，不做语音转写，也不建立任何与人物相关的档案。</p>
+      <p><b>麦克风控制权。</b>你可以随时点击上方红色按钮立即停止分析并释放麦克风；浏览器标签页中的录音指示会随之熄灭。也可以改用合成样例模式，完全不索取麦克风权限。</p>
+      <p><b>数值边界。</b>相对强度受设备型号、摆放位置、距离与环境的影响，未经过声学校准，不是声压级（dB SPL），不能用于噪声达标判定、环评结论或健康影响结论，也不构成对任何场地优劣的评价。</p>
+      <p><b>分类边界。</b>“低 / 中 / 高相对强度”的分区阈值仅为本作品的交互演示规则，不是声学标准。</p>
+    </details>
+  </section>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="head"><b>声景仪表 · 相对声强</b><span class="status" id="status">SAMPLE / READY</span></div>
+      <div class="wavearea">
+        <div class="big"><b id="level">18</b><span>相对强度 / 0–100<br>不是校准分贝</span></div>
+        <div class="tablist" role="tablist" aria-label="声景可视化三视图">
+          <button class="tab" role="tab" id="tab-rt" aria-selected="true" aria-controls="panel-rt" data-tab="rt">实时相对强度曲线</button>
+          <button class="tab" role="tab" id="tab-rec" aria-selected="false" aria-controls="panel-rec" data-tab="rec">记录柱状对比</button>
+          <button class="tab" role="tab" id="tab-scn" aria-selected="false" aria-controls="panel-scn" data-tab="scn">场景分组统计</button>
+        </div>
+
+        <div class="tabpanel" id="panel-rt" role="tabpanel" aria-labelledby="tab-rt">
+          <canvas id="cvRt" aria-label="实时相对强度趋势曲线，横轴为时间窗口，纵轴为 0 到 100 的相对强度，背景色带表示低、中、高三档演示分区"></canvas>
+          <div class="axis"><span>窗口起点（更早）</span><span>窗口中段</span><span>最新样本</span></div>
+          <div class="dists">
+            <span class="tag">最近样本分布（演示阈值）</span>
+            <span class="tag" id="dLow">低相对强度 100%</span>
+            <span class="tag" id="dMid">中相对强度 0%</span>
+            <span class="tag" id="dHigh">高相对强度 0%</span>
+          </div>
+        </div>
+
+        <div class="tabpanel" id="panel-rec" role="tabpanel" aria-labelledby="tab-rec" hidden>
+          <canvas id="cvRec" aria-label="已记录条目的相对强度柱状对比图，横轴为记录序号，纵轴为 0 到 100 的相对强度，颜色区分来源"></canvas>
+          <div class="axis"><span>第 1 条</span><span>按添加顺序</span><span>最新一条</span></div>
+          <div class="dists">
+            <span class="tag">■ 合成样例来源</span><span class="tag">■ 本机麦克风来源</span><span class="tag">纵轴：相对强度 0–100（非分贝）</span>
+          </div>
+        </div>
+
+        <div class="tabpanel" id="panel-scn" role="tabpanel" aria-labelledby="tab-scn" hidden>
+          <canvas id="cvScn" aria-label="按场景分组的统计图，横轴为场景，左纵轴为 0 到 100 的相对强度，右纵轴为记录条数"></canvas>
+          <div class="axis"><span>教学楼</span><span>食堂</span><span>图书馆</span><span>操场</span><span>宿舍</span><span>其他</span></div>
+          <ul class="scenestats" id="sceneStats" aria-live="polite"></ul>
+        </div>
+      </div>
+      <p class="note"><b>阈值与校准边界说明。</b>“低 / 中 / 高相对强度”的分类阈值（29、62 为分界）只是本作品的演示规则，用于让视觉分层更易读，不对应任何声学或环境标准。相对强度由短时窗口内的振幅换算而来，未经校准，不是声压级，不能用作噪声达标或健康影响结论。</p>
+    </section>
+
+    <aside class="panel side">
+      <h2>开始一次观察</h2>
+      <p class="hint">先选一种来源。实时模式需要你明确授权麦克风；处理仅在当前浏览器内完成，不上传、不保存音频。</p>
+      <div class="btns">
+        <button class="btn primary" id="sample">播放合成样例</button>
+        <button class="btn" id="mic">启用本机麦克风</button>
+        <button class="btn warn" id="stop">停止</button>
+      </div>
+      <div class="live" id="live" aria-live="polite"></div>
+
+      <h2 class="sec">示例数据（仅用于演示）</h2>
+      <p class="hint">这几条是团队虚构的演示记录，用来让三个视图立刻有内容可看，<b>不是真实观测结果</b>；载入后会在列表与导出文件中标记为「示例」。</p>
+      <div class="btns">
+        <button class="btn primary" id="loadDemo">载入示例记录</button>
+        <button class="btn" id="clearDemo">清空示例数据</button>
+      </div>
+      <p class="demohint" id="demoHint">示例数据为虚构演示数据，随时可一键载入或清空。</p>
+
+      <h2 class="sec">为片段做标注</h2>
+      <p class="hint">选择时段与场景，写下你对声源的观察，再加入记录列表。</p>
+      <div class="form">
+        <label>时段
+          <select id="period">
+            <option value="早">早</option><option value="午">午</option><option value="晚">晚</option>
+          </select>
+        </label>
+        <label>场景
+          <select id="scene">
+            <option>教学楼</option><option>食堂</option><option>图书馆</option><option>操场</option><option>宿舍</option><option>其他</option>
+          </select>
+        </label>
+      </div>
+      <div class="annot">
+        <input id="note" type="text" maxlength="120" aria-label="声景观察文字标注" placeholder="例如：图书馆入口 · 人流经过">
+        <button class="btn" id="add">添加记录</button>
+      </div>
+      <div class="list" id="records"></div>
+      <div class="btns">
+        <button class="btn" id="exportCsv">导出 CSV</button>
+        <button class="btn" id="exportJson">导出 JSON</button>
+        <button class="btn warn" id="clear">清空记录</button>
+      </div>
+      <div class="privacy"><b>数据边界。</b>声级值由麦克风振幅换算为相对强度，受设备、距离和环境影响；不是校准声压级或噪声合规结论。导出文件只含时段、场景、来源、相对强度和文字标注，不含音频，也不含任何可指向说话者身份的内容。</div>
+    </aside>
+  </main>
+</div>
+
+<!-- 作品说明抽屉 -->
+<div class="scrim" id="scrim" hidden></div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" hidden>
+  <div class="dhead">
+    <h2 id="drawerTitle">作品说明</h2>
+    <button class="btn small" id="closeInfo" aria-label="关闭作品说明">关闭 Esc</button>
+  </div>
+  <div class="dbody">
+    <section>
+      <h3>1 · 作品简介与目标用户</h3>
+      <p>《听见校园：隐私优先的声景地图》是一个在浏览器本地运行的声景观察与可视化工具。它把校园中的声音活动转成可观察、可注释、可导出的视觉节奏，帮助使用者以“相对强度 + 场景 + 时段 + 文字观察”的方式记录身边的声环境。</p>
+      <p><b>目标用户：</b>做校园声环境观察的学生与社团、数字媒体与数据可视化课程的学习者、需要公开讨论声环境但不愿采集录音的公共空间管理者，以及希望了解“数据可以被怎样负责任地处理”的普通师生。</p>
+    </section>
+    <section>
+      <h3>2 · 创新点</h3>
+      <ol>
+        <li><b>隐私优先的本地处理。</b>与常见的分贝 App 不同，本作品不录制、不上传、不保存原始音频。麦克风只在本机被用于实时振幅统计，采样窗口被下一次采样覆盖；导出物只有数值与文字。同时明确不识别、不推断说话者身份，不做语音转写，从机制上避免了对人物与对话内容的采集。</li>
+        <li><b>相对强度而非分贝的诚实表达。</b>常见分贝 App 往往直接显示 dB 数值，容易让读者误以为其具备声学校准。本作品只给出 0–100 的<b>相对强度</b>，并在仪表、隐私面板与边界声明中反复说明它不是声压级、不能用于噪声达标或健康影响结论，用“克制”换取“可信”。</li>
+        <li><b>可注释的声景可视化。</b>把单纯的数值曲线扩展为“记录—可视化—注释—导出”的闭环：每条观察都带时段、场景、来源与文字，进而形成实时曲线、记录柱状对比、场景分组统计三个视图，让个人感受与定量趋势一起成为可讨论的材料。</li>
+      </ol>
+    </section>
+    <section>
+      <h3>3 · 数据来源与处理方法</h3>
+      <p><b>① 数据来源。</b>本作品不使用任何第三方数据集或音频素材库，页面不发起任何网络请求，全部数据在打开页面的这台设备上产生。</p>
+      <ul>
+        <li><b>合成样例（程序生成）：</b>由程序内的确定性函数按帧序号 <code>t</code> 实时生成振幅统计量，不含真实录音、不读取麦克风。生成式：<code>level = 18 + 10·sin(0.35t) + 7·sin(1.7t) + p(t)</code>，其中 <code>p(t)</code> 在 <code>t mod 34</code> 大于 22 时为 42、在 14–22 之间时为 18、其余为 0；每 250 ms 取一帧，结果经四舍五入并截断到 0–100。</li>
+        <li><b>本机麦克风（用户实时输入）：</b>用户明确授权后，浏览器在本机读取麦克风音频并只用于实时分析；<b>不留存原始音频、不写入任何文件、不上传服务器</b>，也不读取任何外部音频文件。用户可随时「立即停止并释放麦克风」。</li>
+        <li><b>示例记录（虚构演示数据）：</b>作品提供 9 条虚构示例记录用于演示与录屏，在列表中标「示例」、导出时带 <code>是否示例数据</code> 标记，不来自任何真实观测，不应用于任何结论。</li>
+      </ul>
+      <p><b>② 处理方法：从音频振幅到相对强度。</b></p>
+      <ol>
+        <li><b>取时域振幅。</b>Web Audio 的 <code>AnalyserNode</code>（<code>fftSize = 1024</code>）每 150 ms 取一次当前缓冲的 N = 1024 点时域数据 <code>getByteTimeDomainData</code>，得到取值 b ∈ [0, 255]。</li>
+        <li><b>归一化为有符号振幅。</b><code>x_i = (b_i − 128) / 128</code>，映射到 −1 ~ +1。</li>
+        <li><b>短时窗口 RMS。</b><code>RMS = sqrt( (1/N) · Σ x_i² )</code>。窗口长度 N = 1024 个采样点，按常见 44.1 kHz / 48 kHz 采样率换算约为 21–23 ms。</li>
+        <li><b>映射为相对强度。</b><code>相对强度 = clamp( round( RMS × 280 ), 0, 100 )</code>。系数 280 是为获得可读动态范围而设定的<b>显示系数</b>，未经任何校准。</li>
+      </ol>
+      <p><b>与声压级的区别（如实说明）：</b>上述链路未做频率计权（如 A 计权）、未做时间计权（F / S），未做传声器灵敏度与频响校准，因此该 0–100 数值<b>不是分贝（dB SPL）</b>，不能换算为分贝，不同设备之间的读数也不可直接横向比较。此外，每 150 ms 只取最近约 21–23 ms 的窗口，窗口之间存在间隔，属于抽样观察而非连续测量。</p>
+      <p><b>③ 信息结构：五个字段及其关系。</b>每条记录是一个统一的数据单元，含五个字段：<b>时段</b>（早 / 午 / 晚）、<b>场景</b>（教学楼 / 食堂 / 图书馆 / 操场 / 宿舍 / 其他）、<b>来源</b>（合成样例 / 本机麦克风）、<b>相对强度</b>（0–100）、<b>观察文字</b>（≤ 120 字的用户主观描述）。其关系是：时段与场景是两条分类维度，决定记录在第三个视图中落在哪个分组；来源决定记录在第一、二视图中的配色与形状标记；相对强度是唯一的定量变量，承担三视图共用纵轴；观察文字承载无法被数值表达的情境，也是记录能被回忆与讨论的关键。五个字段全部可被导出，导出物不含音频。</p>
+      <p><b>④ 可视化逻辑：为什么是这三张图。</b>三视图按“要回答的问题”分工，共用同一套纵轴定义（0–100、不随数据范围缩放）、同一套刻度步长（25）与相近的留白规则，使切换视图时刻度体系保持稳定。</p>
+      <ul>
+        <li><b>实时相对强度曲线（回答“随时间怎么变”）。</b>时间连续、样本密集时，折线是最适合表达趋势的形状。视觉编码：横轴为时间窗口序号（左早—右新，共 80 个样本），纵轴为相对强度；2 px 青色折线加向下渐变填充表达走势走向，末端橙色圆点标出最新样本，背后三段背景色带连续映射为低 / 中 / 高三档，便于一眼判读所处区间。</li>
+        <li><b>记录柱状对比（回答“条目之间谁更大”）。</b>条目之间要做精确的横向比较，长度（柱高）是准确度最高的视觉通道，优于颜色或面积。视觉编码：横轴为记录序号（按添加顺序），纵轴为相对强度；柱례顶直接标注数值以避免读轴误差；来源用<b>形状 + 颜色</b>双重编码（合成样例 = 圆形、青色；麦克风 = 三角形、橙色）。</li>
+        <li><b>场景分组统计（回答“哪里更吵”）。</b>空间维度需要把多条记录压到一个分组里做聚合。视觉编码：横轴为场景分类轴（无序，等距），左纵轴为相对强度（平均值、最高值），右纵轴为记录条数；每组三根柱用<b>实色 / 斜纹 / 点纹</b>纹理区分序列，并在图下方提供同内容的文字统计列表，便于读屏与逐项核对。</li>
+      </ul>
+    </section>
+    <section>
+      <h3>4 · 技术路线</h3>
+      <ol>
+        <li><b>取值。</b>使用 Web Audio API：麦克风模式下由 <code>getUserMedia</code> 取得音频流，经 <code>createMediaStreamSource</code> 接入 <code>AnalyserNode</code>（fftSize = 1024），读取 <code>getByteTimeDomainData</code> 的时域振幅。</li>
+        <li><b>换算。</b>对短时窗口内的振幅做 RMS（均方根）计算，再经线性映射并截断到 0–100，得到相对强度；合成样例模式由确定性函数生成演示序列，用于无麦克风时的体验。</li>
+        <li><b>信息结构。</b>每条记录 = 时间 + 时段（早/午/晚）+ 场景（教学楼/食堂/图书馆/操场/宿舍/其他）+ 来源（合成/麦克风）+ 相对强度 + 观察文字，构成后续可视化与导出的统一数据单元。</li>
+        <li><b>可视化逻辑。</b>三视图分工：实时曲线呈现“随时间的变化”，柱状对比呈现“条目间的横向比较”，场景分组统计呈现“空间维度的聚合”；三图共用一套配色与坐标规则（左轴固定 0–100 相对强度、刻度步长 25，场景图另设右轴记录条数），图例与坐标轴均标注清楚。<b>完整的来源、处理方法、信息结构与编码规则见第 3 分区，坐标 / 配色 / 字号级的约束见第 5 分区。</b></li>
+        <li><b>工程约束。</b>纯 HTML / CSS / 原生 JavaScript，无构建步骤、无外部依赖、无网络上传；所有图表由 Canvas 2D 代码直接绘制。</li>
+      </ol>
+    </section>
+    <section>
+      <h3>5 · 可视化设计规范</h3>
+      <p><b>① 配色系统。</b>全站只使用一套主题色，同一颜色在所有视图中含义固定，避免跨图歧义。</p>
+      <ul>
+        <li><b>序列色：</b>青色 <code>#0b837e</code> 用于主数据（实时曲线、平均值、合成样例来源）；橙色 <code>#df795a</code> 用于强调（最新样本、最高值、麦克风来源）；草绿 <code>#8aa63f</code> 用于第三序列（记录条数）。</li>
+        <li><b>三档强度色带：</b>低（0–28）<code>#e8f2ec</code>、中（29–61）<code>#f2f3e2</code>、高（62–100）<code>#f7e6de</code>。含义是把连续的相对强度离散为三档以便快速判读；<b>这三个阈值只是本作品的演示规则，不是声学标准</b>，在图表下方与隐私面板中均重复说明。</li>
+        <li><b>中性色：</b>纸白 <code>#f7faf9</code>、背景 <code>#e5edf0</code>、分隔线 <code>#c4d2d4</code>、网格 <code>#d5e2df</code>、正文墨 <code>#18313a</code>、次要文字 <code>#63777d</code>；危险操作（释放麦克风）用砖红 <code>#a4382a</code>，仅用于按钮。</li>
+      </ul>
+      <p><b>② 坐标轴与网格。</b>纵轴统一固定为 0–100 且不随数据范围缩放，保证跨视图与跨场次的可比性；刻度步长 25（0 / 25 / 50 / 75 / 100），刻度值紧贴轴的外侧标注。网格线 1 px <code>#d5e2df</code>，绘制于数据层之下；两条阈值分界线用 4:3 虚线 <code>#b9cccb</code>，弱于数据线。横轴为等距分类轴或时间序号轴，不做非线性压缩。三图的内边距（CSS 像素）分别为：实时图 左 40 / 右 96 / 上 16 / 下 24；记录图 40 / 16 / 28 / 26；场景图 40 / 40 / 28 / 26。画布按设备像素比重新取样，保证高分屏下线条与文字不虚。</p>
+      <p><b>③ 字号层级。</b>页面主标题 <code>clamp(31px, 4.6vw, 48px)</code>；区块标题 15.5 px 与 12.5 px；正文基准 15 px，说明与列表 11.5–12 px，次要提示 10.5–11 px；图表的刻度、图例与元数据统一 9–10 px 等宽字体，保证数字对齐；中央读数 52 px 衬线体，作为唯一的视觉焦点。说明性段落行高 1.55–1.75，宽度受限以避免超长行。</p>
+      <p><b>④ 图例位置。</b>图例统一置于绘图区顶部内侧：实时图在右上角（远离末端圆点所在的右上方数据时也保持不遮挡峰值），记录图与场景图在左上角；水平排布，随画布宽度自适应。图例项与数据序列使用同一种颜色、形状与纹理编码。</p>
+      <p><b>⑤ 空状态与加载态。</b></p>
+      <ul>
+        <li><b>空状态：</b>无数据时仍绘制完整的坐标框架（轴线、刻度、轴标题），并在画布正中给出一句可操作提示（如“暂无记录，先在右侧添加一次观察”），<b>不使用假数据填充</b>；场景图空状态时，其下方的文字统计区同步显示为“暂无记录”。</li>
+        <li><b>加载态：</b>全部计算在本机同步完成、不发起网络请求，因此不设加载动画；进一步叠加何种视图也只由用户操作触发。</li>
+      </ul>
+      <p><b>⑥ 无障碍与色盲友好性。</b>作品不单靠颜色传达含义：来源使用<b>形状</b>（合成样例 = 圆形，麦克风 = 三角形），场景三序列使用<b>填充纹理</b>（平均 = 实色，最高 = 斜纹，条数 = 点纹），并始终辅以数值标注或文字列表。每张 canvas 都带描述其编码方式的 <code>aria-label</code>，关键数据另有文字版本（场景统计列表、最近样本分布百分比、逐条记录的元数据行）。所有交互元素可 Tab 聚焦并显示 3 px 橙色焦点环；选项卡支持左右方向键切换；抽屉支持 Esc 关闭并把焦点交还给触发元素；启用缅怀式减少动效偏好（<code>prefers-reduced-motion</code>）时不启用任何 CSS 过渡与动画（采样刷新属于数据更新，由用户启动并可随时停止）。</p>
+    </section>
+    <section>
+      <h3>6 · 操作与运行说明</h3>
+      <ol>
+        <li>直接用浏览器打开本 HTML 文件即可运行，无需安装与联网。</li>
+        <li>点击“播放合成样例”进入演示；点击“启用本机麦克风”进入实时分析。</li>
+        <li><b>麦克风前置条件：</b>浏览器仅在安全上下文（HTTPS 页面或 localhost / 本地文件由浏览器策略决定）中提供 <code>getUserMedia</code>，且需要用户点击授权。若被拒绝或环境不支持，作品会自动降级为仅合成样例模式，并给出提示。</li>
+        <li>观察时选择时段与场景，填写观察文字后点击“添加记录”；可逐条删除或一键清空。</li>
+        <li>点击“导出 CSV”或“导出 JSON”保存记录；任何时候都可用红色按钮“立即停止并释放麦克风”。</li>
+        <li><b>演示路径：</b>不想索取麦克风时，先点“播放合成样例”，再点右侧“载入示例记录”，三个视图会立即有内容可看；示例记录是虚构数据，随时可“清空示例”。</li>
+      </ol>
+    </section>
+    <section>
+      <h3>7 · 展示与传播建议</h3>
+      <p><b>校园展览 / 开放日投屏。</b>大屏循环展示合成样例下的实时相对强度曲线，同时把三视图依次切换播放：曲线讲“时间变化”，柱状图讲“条目比较”，场景图讲“空间聚合”。展示牌上必须写明“相对强度为 0–100 的相对值，不是分贝”，避免观众误读。展览结束时建议点一次“停止”，确认不再占用任何采集资源。</p>
+      <p><b>科普活动 / 课堂互动。</b>邀请观众自己添加一条观察：选时段与场景、写一句描述，柱状图会立刻多出一根属于他的柱子。活动结束前导出当天记录，把 CSV 或 JSON 做成“今天的校园声景”海报或图表；此时需注明数据来自现场观众的主观标注，并保留“示例数据”标记，不与真实观测混淆。</p>
+      <p><b>课堂 / 工作坊使用。</b>可用“载入示例记录”在几十秒内搭出完整三视图，用来讨论“同一份数据换一种图形会得到什么结论”，再对照本说明的数据方法分区检查每条结论是否有数据支撑。</p>
+      <p><b>三个可以直接讨论的问题：</b></p>
+      <ol>
+        <li><b>校园里哪些时段、哪些地点最“吵”？</b>本作品的记录由个人在不同时间、不同设备上零星添加，样本量与覆盖都不均衡；要回答这个问题还缺什么？（同一时段多点位同步观察、足够多的重复样本、统一的设备摆位说明）</li>
+        <li><b>相对强度能代表“吵”吗？</b>响度相近但频谱不同的声音（例如走廊里的人群说话声与食堂的餐具碰撞声）给人的感受很不一样；本作品只用了短时窗口的振幅统计，可视化有没有可能把这种差异表达出来？</li>
+        <li><b>隐私边界应该画在哪里？</b>如果换成“能还原对话内容”的采集方式，即便同样宣称不保存音频，是否仍构成对个人信息的处理？“不录制、不上传”这一条约束，哪些环节最容易在实际改动中被悄悄放弃？</li>
+      </ol>
+    </section>
+    <section>
+      <h3>8 · 版本与变更记录</h3>
+      <ul>
+        <li><b>v1（2026-10-18）：</b>完成三视图（实时曲线、记录柱状对比、场景分组统计）原型，实现合成样例与麦克风双输入、记录增删与 CSV / JSON 导出。</li>
+        <li><b>v2（2026-10-18）：</b>补充隐私面板与完整边界说明，加入 Microphone 能力检测与降级、CSV 公式注入防护、键盘可达、移动端单列布局与 <code>prefers-reduced-motion</code> 支持。</li>
+        <li><b>v3（2026-10-18）：</b>补齐数据来源与处理方法、可视化设计规范两个赛项要求分区；加入示例数据与演示路径、展示传播建议与讨论问题；图表增加形状与纹理双重编码以提升色盲友好性；导出文件补齐数据方法版本、可视化规范版本与示例数据标记。</li>
+        <li><b>v4（2026-10-22）：</b>提交版整理——补齐团队原创贡献清单与真实署名；版本记录补入实际日期并接入公开仓库；把规范条号类内部占位改为可核实的对外表述；全文去除占位表述。</li>
+      </ul>
+      <p>以上日期与公开仓库的提交历史一致，可逐次核对：<code>github.com/junming49/blue-boundary-coral-reef/commits/main</code> 。</p>
+      <p><b>版本标记：</b>应用版本 <code>APP-v3</code>、数据来源与处理方法版本 <code>DM-v3</code>、可视化规范版本 <code>VS-v3</code>。三者会写入导出的 CSV 列与 JSON 字段，使导出物始终可以追溯到当时的口径；若修改了换算公式、窗口参数或视觉规范，须同步递增对应版本号。</p>
+    </section>
+    <section>
+      <h3>9 · 验证与测试自查</h3>
+      <p><b>已完成（团队自行核对）：</b></p>
+      <ul>
+        <li><b>公开规范自行核对：</b>依据《声环境质量标准》GB 3096 的功能区分类框架，说明本作品读数为 0–100 的<b>相对强度</b>、非分贝值、非噪声达标结论；本作品只借用其分类思路，<b>不声称条文级符合性，也未委托检测</b>。</li>
+        <li><b>页面功能走查：</b>按操作路径逐项验证导出文件（CSV / JSON 字段完整且不含音频、CSV 公式注入防护前缀处理）、键盘操作、移动端单列布局、减少动效（<code>prefers-reduced-motion</code>）、边界提示（麦克风被拒绝或环境不支持时降级为合成样例模式）；JavaScript 语法检查通过。</li>
+        <li><b>代码与第三方资源自查：</b>纯静态单文件、无外部依赖与网络请求、图形均由 Canvas / CSS 代码绘制、无未授权第三方素材；隐私机制自查（无音频留存、无上传、不识别或推断说话者身份）。</li>
+      </ul>
+      <p><b>尚未开展（如实列出，不作已完成陈述）：</b></p>
+      <ul>
+        <li><b>专业审阅：</b>未邀请声学或环境监测专业人员审阅读数口径、分区阈值与文案表述。</li>
+        <li><b>未使用校准声级设备：</b>未使用校准声级设备，未与校准设备做比对测试，读数不是分贝（dB SPL），不同设备间数值一致性未验证。</li>
+        <li><b>用户测试：</b>未开展目标用户任务测试，无可读性与易用性数据；现场采样的知情同意与伦理流程尚未建立。</li>
+      </ul>
+      <p><b>后续计划：</b></p>
+      <ul>
+        <li>邀请声学或环境监测专业人员审阅读数口径与阈值设定，并回填规范条款号。负责人：吴昊（团队负责人）；时间：赛后 1 个月内。</li>
+        <li>使用校准声级设备做比对测试，量化本作品相对强度与实际声级的关系或明确声明不可比。负责人：吴昊（团队负责人）；时间：赛后 2 个月内。</li>
+        <li>开展目标用户可读性与易用性测试，并补齐现场采样的知情同意与伦理流程。负责人：吴昊（团队负责人）；时间：赛后 2 个月内。</li>
+      </ul>
+      <p><b>一句话原则：本材料的表述与作品实际完成状态一致，未开展的专业审阅、实地测绘与用户测试均如实列为后续工作，未以任何形式宣称已完成。</b></p>
+    </section>
+    <section>
+      <h3>10 · AI 使用与素材说明</h3>
+      <ul>
+        <li><b>AI 辅助部分：</b>界面与可视化代码在 AI 辅助下编写与迭代。</li>
+        <li><b>图形素材：</b>全部图表与界面图形由 Canvas / CSS 代码绘制，未使用外部图片素材。</li>
+        <li><b>音频素材：</b>不使用任何录音素材；合成样例由程序内确定性函数实时生成，不含真实录音。</li>
+        <li><b>字体：</b>仅使用系统字族（Segoe UI、Microsoft YaHei 等通用中文/西文字体栈与系统等宽字体），未引入任何第三方字体文件，无授权问题；大号数字读数使用的衬线体 Georgia 为系统字体。</li>
+        <li><b>示例数据：</b>9 条示例记录由本团队自行虚构编写，仅用于演示与录屏，不来自任何第三方数据源，在界面与导出文件中均标记为示例数据。</li>
+        <li><b>团队原创贡献：</b>主创 吴昊（团队负责人）：整体设计、隐私机制与三个视图的结构定调、最终把关。技术实现 徐志：振幅采集、实时曲线视图、记录柱状对比、场景分组统计、注释系统、导出与数据标记。内容与设计 苏张柏绮：隐私机制设计、可视化规范。全部代码、文案与视觉元素由团队自行完成，未使用第三方图片、字体、图标或音频素材。</li>
+      </ul>
+    </section>
+    <section>
+      <h3>11 · 边界声明</h3>
+      <ul>
+        <li>本作品显示的数值是 0–100 的<b>相对强度</b>，不是校准分贝（dB SPL）。</li>
+        <li>结果不构成噪声合规结论，不用于环评、达标判定或任何行政依据。</li>
+        <li>结果不构成对场地、建筑或管理方的优劣评价。</li>
+        <li>本作品不识别、不推断说话者身份，不做语音转写。</li>
+        <li>“低 / 中 / 高相对强度”的分区阈值仅为演示规则，不是声学标准。</li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ========== 常量 ========== */
+const SCENES = ['教学楼','食堂','图书馆','操场','宿舍','其他'];
+const PERIODS = ['早','午','晚'];
+const T_LOW = 29, T_HIGH = 62;          // 演示用分区阈值（非声学标准）
+const WIN = 80;                          // 实时窗口样本数
+// 版本标记：随 CSV / JSON 一同导出，便于追溯当时的口径
+const APP_VERSION = 'APP-v3';
+const DATA_METHOD_VERSION = 'DM-v3';
+const VIS_SPEC_VERSION = 'VS-v3';
+const C = {teal:'#0b837e', orange:'#df795a', lime:'#8aa63f',
+           grid:'#d5e2df', line:'#c4d2d4', ink:'#18313a', muted:'#63777d',
+           lowBg:'#e8f2ec', midBg:'#f2f3e2', highBg:'#f7e6de'};
+
+// 虚构的示例记录：仅用于演示与录屏，界面与导出文件中都会被标记为示例数据
+const DEMO_RECORDS = [
+  {t:'07:38', period:'早', scene:'教学楼', source:'合成',   level:57, note:'示例：早读前走廊人流聚集'},
+  {t:'08:15', period:'早', scene:'食堂',   source:'麦克风', level:71, note:'示例：早餐窗口排队与餐具碰撞'},
+  {t:'09:40', period:'早', scene:'图书馆', source:'合成',   level:22, note:'示例：自习区偶有翻书声'},
+  {t:'11:55', period:'午', scene:'食堂',   source:'麦克风', level:78, note:'示例：午餐高峰，人声叠加明显'},
+  {t:'12:40', period:'午', scene:'宿舍',   source:'合成',   level:35, note:'示例：午休时段走廊偶有人经过'},
+  {t:'14:05', period:'午', scene:'教学楼', source:'合成',   level:44, note:'示例：课间讨论与搬动桌椅'},
+  {t:'16:30', period:'晚', scene:'操场',   source:'麦克风', level:64, note:'示例：社团活动与远处广播'},
+  {t:'19:20', period:'晚', scene:'图书馆', source:'合成',   level:18, note:'示例：闭馆前一小时趋于安静'},
+  {t:'21:05', period:'晚', scene:'其他',   source:'麦克风', level:52, note:'示例：校门口车流与交谈声'}
+];
+
+/* ========== 状态 ========== */
+let samples = new Array(WIN).fill(0);   // 实时窗口（滚动）
+let records = [];                        // 已记录条目
+let mode = 'sample';                     // 'sample' | 'mic'
+let lastLevel = 0, tick = 0;
+let timer = null, stream = null, audioCtx = null, analyser = null;
+let tab = 'rt';
+
+const $ = id => document.getElementById(id);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+/* ========== 通用工具 ========== */
+// 让画布按容器尺寸与设备像素比准备好，返回 CSS 像素坐标系
+function fit(cv){
+  const r = cv.getBoundingClientRect();
+  const d = window.devicePixelRatio || 1;
+  const w = Math.max(1, Math.round(r.width * d)), h = Math.max(1, Math.round(r.height * d));
+  if (cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; }
+  const c = cv.getContext('2d');
+  c.setTransform(d, 0, 0, d, 0, 0);
+  c.clearRect(0, 0, r.width, r.height);
+  return {c, w: r.width, h: r.height};
+}
+function setLive(t){ $('live').textContent = t; }
+function showStatus(s){ $('status').textContent = s; }
+// 时段按当前时间给出默认建议，用户可自行改选
+function suggestPeriod(){
+  const h = new Date().getHours();
+  return h < 11 ? '早' : (h < 14 ? '午' : '晚');
+}
+// 图例：形状/纹理 + 颜色双重编码，位于绘图区顶部内侧
+function legend(c, x, y, items){
+  c.font = '10px ui-monospace, monospace';
+  c.textBaseline = 'middle';
+  let cx = x;
+  items.forEach(it => {
+    drawMarker(c, it.shape || 'circle', cx, y, 9, it.color, it.tex);
+    c.fillStyle = C.muted;
+    c.textAlign = 'left';
+    c.fillText(it.label, cx + 13, y);
+    cx += 13 + c.measureText(it.label).width + 12;
+  });
+}
+// 画序列标记：circle / triangle / square（square 可叠斜纹或点纹）
+function drawMarker(c, shape, x, y, s, color, tex){
+  if (shape === 'triangle'){
+    c.fillStyle = color;
+    c.beginPath(); c.moveTo(x + s / 2, y - s / 2); c.lineTo(x + s, y + s / 2); c.lineTo(x, y + s / 2); c.closePath(); c.fill();
+    return;
+  }
+  if (shape === 'circle'){
+    c.fillStyle = color;
+    c.beginPath(); c.arc(x + s / 2, y, s / 2, 0, Math.PI * 2); c.fill();
+    return;
+  }
+  // 方形：白底 + 纹理（或实色）+ 描边，保证即使颜色不可辨也能区分
+  const top = y - s / 2;
+  c.fillStyle = '#ffffff'; c.fillRect(x, top, s, s);
+  c.fillStyle = tex ? makeTex(c, color, tex) : color;
+  c.fillRect(x, top, s, s);
+  c.strokeStyle = C.line; c.lineWidth = 1; c.strokeRect(x, top, s, s);
+}
+// 生成并重用一个小纹理图案（diag 斜纹 / dot 点纹），作为颜色的补充编码
+const TEX_CACHE = {};
+function makeTex(c, color, style){
+  const key = color + '|' + style;
+  if (TEX_CACHE[key]) return TEX_CACHE[key];
+  const s = 8, pc = document.createElement('canvas');
+  pc.width = s; pc.height = s;
+  const p = pc.getContext('2d');
+  p.fillStyle = '#ffffff'; p.fillRect(0, 0, s, s);
+  p.strokeStyle = color; p.fillStyle = color; p.lineWidth = 2;
+  if (style === 'diag'){
+    p.beginPath(); p.moveTo(-1, s + 1); p.lineTo(s + 1, -1); p.stroke();
+    p.beginPath(); p.moveTo(3, s + 4); p.lineTo(s + 4, 3); p.stroke();
+  } else if (style === 'dot'){
+    p.beginPath(); p.arc(s / 2, s / 2, 1.8, 0, Math.PI * 2); p.fill();
+  }
+  const pat = c.createPattern(pc, 'repeat');
+  TEX_CACHE[key] = pat || color;
+  return TEX_CACHE[key];
+}
+function emptyHint(c, w, h, text){
+  c.fillStyle = C.muted;
+  c.font = '12px "Segoe UI","Microsoft YaHei",sans-serif';
+  c.textAlign = 'center';
+  c.textBaseline = 'middle';
+  c.fillText(text, w / 2, h / 2);
+}
+
+/* ========== 视图一：实时相对强度曲线 ========== */
+function drawRealtime(){
+  const {c, w, h} = fit($('cvRt'));
+  const pad = {l: 40, r: 96, t: 16, b: 24};
+  const iw = w - pad.l - pad.r, ih = h - pad.t - pad.b;
+  const y = v => pad.t + ih * (1 - clamp(v, 0, 100) / 100);
+
+  // 三档演示分区背景
+  c.fillStyle = C.lowBg;  c.fillRect(pad.l, y(T_LOW), iw, pad.t + ih - y(T_LOW));
+  c.fillStyle = C.midBg;  c.fillRect(pad.l, y(T_HIGH), iw, y(T_LOW) - y(T_HIGH));
+  c.fillStyle = C.highBg; c.fillRect(pad.l, pad.t, iw, y(T_HIGH) - pad.t);
+
+  // 网格与左轴刻度
+  c.font = '9px ui-monospace, monospace';
+  c.textAlign = 'right'; c.textBaseline = 'middle';
+  for (let v = 0; v <= 100; v += 25){
+    c.strokeStyle = C.grid; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(pad.l, y(v)); c.lineTo(pad.l + iw, y(v)); c.stroke();
+    c.fillStyle = C.muted; c.fillText(String(v), pad.l - 6, y(v));
+  }
+  // 阈值分界线（虚线）
+  c.setLineDash([4, 3]); c.strokeStyle = '#b9cccb';
+  [T_LOW, T_HIGH].forEach(t => {
+    c.beginPath(); c.moveTo(pad.l, y(t)); c.lineTo(pad.l + iw, y(t)); c.stroke();
+  });
+  c.setLineDash([]);
+
+  // 折线与填充
+  const step = iw / (WIN - 1);
+  const px = i => pad.l + i * step, py = i => y(samples[i]);
+  c.beginPath();
+  samples.forEach((v, i) => i ? c.lineTo(px(i), py(i)) : c.moveTo(px(i), py(i)));
+  c.strokeStyle = C.teal; c.lineWidth = 2; c.lineJoin = 'round'; c.stroke();
+  c.lineTo(pad.l + iw, pad.t + ih); c.lineTo(pad.l, pad.t + ih); c.closePath();
+  const g = c.createLinearGradient(0, pad.t, 0, pad.t + ih);
+  g.addColorStop(0, 'rgba(11,131,126,.28)'); g.addColorStop(1, 'rgba(11,131,126,.01)');
+  c.fillStyle = g; c.fill();
+  // 最新样本点
+  c.beginPath(); c.arc(px(WIN - 1), py(WIN - 1), 3.5, 0, Math.PI * 2);
+  c.fillStyle = C.orange; c.fill();
+
+  // 轴标题与图例
+  c.save();
+  c.translate(11, pad.t + ih / 2); c.rotate(-Math.PI / 2);
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillStyle = C.muted; c.font = '9px ui-monospace, monospace';
+  c.fillText('相对强度 0–100', 0, 0);
+  c.restore();
+  legend(c, pad.l + iw - 92, pad.t + 6, [
+    {color: C.lowBg,  label: '低', shape: 'square'},
+    {color: C.midBg,  label: '中', shape: 'square'},
+    {color: C.highBg, label: '高', shape: 'square'}
+  ]);
+}
+
+/* ========== 视图二：记录柱状对比 ========== */
+function drawRecords(){
+  const {c, w, h} = fit($('cvRec'));
+  const pad = {l: 40, r: 16, t: 28, b: 26};
+  const iw = w - pad.l - pad.r, ih = h - pad.t - pad.b;
+  const y = v => pad.t + ih * (1 - clamp(v, 0, 100) / 100);
+  if (!records.length){ emptyHint(c, w, h, '暂无记录，先在右侧添加一次观察'); drawRecFrame(c, pad, iw, ih, y); return; }
+
+  const n = records.length;
+  const slot = iw / n, bw = Math.max(4, Math.min(30, slot * 0.62));
+  drawRecFrame(c, pad, iw, ih, y);
+  records.forEach((r, i) => {
+    const cx = pad.l + slot * (i + 0.5);
+    const mic = r.source === '麦克风';
+    const color = mic ? C.orange : C.teal;
+    const yv = y(r.level);
+    c.fillStyle = color;
+    c.fillRect(cx - bw / 2, yv, bw, pad.t + ih - yv);
+    c.strokeStyle = color; c.lineWidth = 1;
+    c.strokeRect(cx - bw / 2, yv, bw, pad.t + ih - yv);
+    c.fillStyle = C.muted; c.font = '9px ui-monospace, monospace';
+    c.textAlign = 'center'; c.textBaseline = 'middle';
+    const label = String(r.level);
+    c.fillText(label, cx, yv - 8);
+    // 来源的形状标记（不依赖颜色）：合成样例=圆，麦克风=三角；柱宽足够时才画
+    if (slot >= 24){
+      drawMarker(c, mic ? 'triangle' : 'circle', cx - c.measureText(label).width / 2 - 9, yv - 8, 6, color);
+    }
+    // 序号（条目多时抽稀显示）
+    if (n <= 16 || i % Math.ceil(n / 16) === 0){
+      c.textBaseline = 'top'; c.fillText('#' + (i + 1), cx, pad.t + ih + 6);
+    }
+  });
+  legend(c, pad.l, 14, [
+    {color: C.teal,   label: '合成样例', shape: 'circle'},
+    {color: C.orange, label: '本机麦克风', shape: 'triangle'}
+  ]);
+}
+// 记录图的坐标框架（供空状态与有数据状态共用）
+function drawRecFrame(c, pad, iw, ih, y){
+  c.font = '9px ui-monospace, monospace';
+  c.textAlign = 'right'; c.textBaseline = 'middle';
+  for (let v = 0; v <= 100; v += 25){
+    c.strokeStyle = C.grid; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(pad.l, y(v)); c.lineTo(pad.l + iw, y(v)); c.stroke();
+    c.fillStyle = C.muted; c.fillText(String(v), pad.l - 6, y(v));
+  }
+  c.strokeStyle = C.line;
+  c.beginPath(); c.moveTo(pad.l, pad.t + ih); c.lineTo(pad.l + iw, pad.t + ih); c.stroke();
+  c.save();
+  c.translate(11, pad.t + ih / 2); c.rotate(-Math.PI / 2);
+  c.textAlign = 'center'; c.fillStyle = C.muted;
+  c.fillText('相对强度 0–100', 0, 0);
+  c.restore();
+}
+
+/* ========== 视图三：按场景分组统计 ========== */
+function drawScenes(){
+  const {c, w, h} = fit($('cvScn'));
+  const pad = {l: 40, r: 40, t: 28, b: 26};
+  const iw = w - pad.l - pad.r, ih = h - pad.t - pad.b;
+  const yv = v => pad.t + ih * (1 - clamp(v, 0, 100) / 100);   // 左轴：相对强度
+
+  const groups = SCENES.map(s => {
+    const arr = records.filter(r => r.scene === s);
+    if (!arr.length) return null;
+    const lv = arr.map(r => r.level);
+    return {scene: s, count: arr.length, avg: lv.reduce((a, b) => a + b, 0) / arr.length, max: Math.max.apply(null, lv)};
+  }).filter(Boolean);
+
+  // 左轴（相对强度）
+  c.font = '9px ui-monospace, monospace';
+  c.textAlign = 'right'; c.textBaseline = 'middle';
+  for (let v = 0; v <= 100; v += 25){
+    c.strokeStyle = C.grid; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(pad.l, yv(v)); c.lineTo(pad.l + iw, yv(v)); c.stroke();
+    c.fillStyle = C.muted; c.fillText(String(v), pad.l - 6, yv(v));
+  }
+  c.strokeStyle = C.line;
+  c.beginPath(); c.moveTo(pad.l, pad.t + ih); c.lineTo(pad.l + iw, pad.t + ih); c.stroke();
+
+  if (!groups.length){
+    emptyHint(c, w, h, '暂无记录，先在右侧添加一次观察');
+    renderSceneStats([]);
+    return;
+  }
+  // 右轴（记录条数）
+  const maxCount = Math.max.apply(null, groups.map(g => g.count));
+  const yc = n => pad.t + ih * (1 - n / maxCount);
+  c.textAlign = 'left';
+  for (let n = 0; n <= maxCount; n++){
+    c.fillStyle = C.muted;
+    c.fillText(String(n), pad.l + iw + 6, yc(n));
+  }
+
+  const slot = iw / groups.length, bw = Math.max(4, slot * 0.2);
+  groups.forEach((g, i) => {
+    const base = pad.l + slot * i;
+    const xs = [base + slot * 0.22, base + slot * 0.5, base + slot * 0.78];
+    // 三个序列用纹理（实色/斜纹/点纹）区分，不单靠颜色
+    [[xs[0], g.avg, C.teal, null, 'v'], [xs[1], g.max, C.orange, 'diag', 'v'], [xs[2], g.count, C.lime, 'dot', 'c']].forEach(([x, val, color, tex, axis]) => {
+      const top = axis === 'c' ? yc(val) : yv(val);
+      const bh = pad.t + ih - top;
+      c.fillStyle = tex ? makeTex(c, color, tex) : color;
+      c.fillRect(x - bw / 2, top, bw, bh);
+      c.strokeStyle = color; c.lineWidth = 1;
+      c.strokeRect(x - bw / 2, top, bw, bh);
+    });
+    c.fillStyle = C.ink; c.font = '10px "Segoe UI","Microsoft YaHei",sans-serif';
+    c.textAlign = 'center'; c.textBaseline = 'top';
+    c.fillText(g.scene, base + slot / 2, pad.t + ih + 6);
+  });
+
+  c.save();
+  c.translate(11, pad.t + ih / 2); c.rotate(-Math.PI / 2);
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillStyle = C.muted; c.font = '9px ui-monospace, monospace';
+  c.fillText('相对强度 0–100', 0, 0);
+  c.restore();
+  c.save();
+  c.translate(w - 11, pad.t + ih / 2); c.rotate(Math.PI / 2);
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillStyle = C.muted;
+  c.fillText('记录条数', 0, 0);
+  c.restore();
+  legend(c, pad.l, 14, [
+    {color: C.teal,   label: '平均相对强度', shape: 'square', tex: null},
+    {color: C.orange, label: '最高值', shape: 'square', tex: 'diag'},
+    {color: C.lime,   label: '条数', shape: 'square', tex: 'dot'}
+  ]);
+  renderSceneStats(groups);
+}
+// 场景统计的文字版本（便于读屏与快速核对）
+function renderSceneStats(groups){
+  const host = $('sceneStats');
+  host.replaceChildren();
+  if (!groups.length){
+    const li = document.createElement('li');
+    li.textContent = '暂无记录';
+    host.appendChild(li);
+    return;
+  }
+  groups.forEach(g => {
+    const li = document.createElement('li');
+    li.textContent = g.scene + '：' + g.count + ' 条 · 平均 ' + g.avg.toFixed(1) + ' · 最高 ' + g.max;
+    host.appendChild(li);
+  });
+}
+
+/* ========== 刷新当前视图 ========== */
+function render(){
+  if (tab === 'rt') drawRealtime();
+  else if (tab === 'rec') drawRecords();
+  else drawScenes();
+}
+
+/* ========== 采样与数据源 ========== */
+// 推入一个新样本，更新读数、分布标签与当前视图
+function push(v){
+  const val = clamp(Math.round(v), 0, 100);
+  lastLevel = val;
+  samples.push(val); samples.shift();
+  $('level').textContent = String(val);
+  const cnt = [0, 0, 0];
+  samples.forEach(x => cnt[x < T_LOW ? 0 : (x < T_HIGH ? 1 : 2)]++);
+  const pct = n => Math.round(n / WIN * 100) + '%';
+  $('dLow').textContent  = '低相对强度 ' + pct(cnt[0]);
+  $('dMid').textContent  = '中相对强度 ' + pct(cnt[1]);
+  $('dHigh').textContent = '高相对强度 ' + pct(cnt[2]);
+  if (tab === 'rt') drawRealtime();
+}
+// 停止一切分析与麦克风占用
+function stopAll(msg){
+  if (timer){ clearInterval(timer); timer = null; }
+  if (stream){ stream.getTracks().forEach(t => t.stop()); stream = null; }
+  if (audioCtx){ audioCtx.close().catch(() => {}); audioCtx = null; }
+  analyser = null;
+  mode = 'sample';
+  showStatus('STOPPED');
+  setLive(msg || '观察已停止，麦克风已释放。');
+}
+// 合成样例：确定性函数生成演示序列，不含任何真实录音
+function startSample(){
+  stopAll('');
+  mode = 'sample'; tick = 0;
+  timer = setInterval(() => {
+    tick++;
+    const v = 18 + Math.sin(tick * .35) * 10 + (tick % 34 > 22 ? 42 : tick % 34 > 13 ? 18 : 0) + Math.sin(tick * 1.7) * 7;
+    push(v);
+  }, 250);
+  showStatus('SYNTHETIC SAMPLE');
+  setLive('正在播放合成样例：由程序实时生成，不含现场采样。');
+}
+// 麦克风：本机实时分析，能力检测失败时降级为仅合成模式
+async function startMic(){
+  stopAll('');
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    showStatus('MIC UNAVAILABLE');
+    setLive('当前环境不支持麦克风采集，已降级为仅合成样例模式。');
+    startSample();
+    return;
+  }
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({audio: true});
+    const AC = window.AudioContext || window.webkitAudioContext;
+    audioCtx = new AC();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 1024;
+    audioCtx.createMediaStreamSource(stream).connect(analyser);
+    const buf = new Uint8Array(analyser.fftSize);
+    timer = setInterval(() => {
+      if (!analyser) return;
+      analyser.getByteTimeDomainData(buf);          // 读取短时窗口振幅
+      let sum = 0;
+      for (let i = 0; i < buf.length; i++){ const x = (buf[i] - 128) / 128; sum += x * x; }
+      const rms = Math.sqrt(sum / buf.length);
+      push(rms * 280);                              // 线性映射为 0–100 相对强度（未校准）
+    }, 150);
+    mode = 'mic';
+    showStatus('LOCAL MIC ACTIVE');
+    setLive('本机分析已启动：只在本机实时计算相对强度，原始音频不会上传或写入记录。');
+  }catch(e){
+    stopAll('');
+    showStatus('MIC UNAVAILABLE');
+    setLive('无法启用麦克风：请在 HTTPS 或 localhost 页面打开并允许权限，或改用合成样例。');
+  }
+}
+
+/* ========== 记录列表（用户输入一律用 textContent 显示） ========== */
+function renderRecords(){
+  const host = $('records');
+  host.replaceChildren();
+  if (!records.length){
+    const row = document.createElement('div');
+    row.className = 'row';
+    const s = document.createElement('span');
+    s.className = 'emptytext';
+    s.textContent = '暂无记录。记录只保存在当前页面内存中，刷新即清除。';
+    row.appendChild(s);
+    host.appendChild(row);
+    updateDemoHint();
+    return;
+  }
+  updateDemoHint();
+  records.slice().reverse().forEach(r => {
+    const row = document.createElement('div');
+    row.className = 'row';
+    const main = document.createElement('div');
+    main.className = 'main';
+    if (r.demo){
+      const badge = document.createElement('span');
+      badge.className = 'badge';
+      badge.textContent = '示例';
+      main.appendChild(badge);
+    }
+    const text = document.createElement('span');
+    text.textContent = r.note;
+    const meta = document.createElement('span');
+    meta.className = 'meta';
+    meta.textContent = (r.demo ? '示例数据 · ' : '') + r.time + ' · ' + r.period + ' · ' + r.scene + ' · 相对强度 ' + r.level + ' · 来源 ' + r.source;
+    main.append(text, meta);
+    const del = document.createElement('button');
+    del.className = 'btn small warn';
+    del.textContent = '删除';
+    del.setAttribute('aria-label', '删除记录：' + r.note + (r.demo ? '（示例数据）' : ''));
+    del.onclick = () => {
+      const i = records.findIndex(x => x.id === r.id);
+      if (i >= 0) records.splice(i, 1);
+      renderRecords(); render();
+      setLive('已删除 1 条本地记录。');
+    };
+    row.append(main, del);
+    host.appendChild(row);
+  });
+}
+// 统计并提示当前示例数据的存在情况（示例数据在列表与导出中都会带标记）
+function updateDemoHint(){
+  const n = records.filter(r => r.demo).length;
+  $('demoHint').textContent = n
+    ? '当前含 ' + n + ' 条虚构示例记录（列表中标注「示例」），导出时会带上示例数据标记。'
+    : '示例数据为虚构演示数据，随时可一键载入或清空。';
+}
+// 载入虚构示例记录：先移除旧示例，避免重复叠加
+function loadDemo(){
+  records = records.filter(r => !r.demo);
+  DEMO_RECORDS.forEach((d, i) => {
+    records.push({
+      id: 'demo-' + i,
+      iso: null,
+      time: d.t,
+      period: PERIODS.includes(d.period) ? d.period : '早',
+      scene: SCENES.includes(d.scene) ? d.scene : '其他',
+      source: d.source === '麦克风' ? '麦克风' : '合成',
+      level: clamp(Math.round(d.level), 0, 100),
+      note: d.note.slice(0, 120),
+      demo: true
+    });
+  });
+  renderRecords(); render();
+  setLive('已载入 ' + DEMO_RECORDS.length + ' 条示例数据（团队虚构，非真实观测；导出时会标注为示例）。');
+}
+// 只清除示例数据，保留用户自己添加的记录
+function clearDemo(){
+  const n = records.filter(r => r.demo).length;
+  if (!n){ setLive('当前没有示例数据可以清除。'); return; }
+  records = records.filter(r => !r.demo);
+  renderRecords(); render();
+  setLive('已移除 ' + n + ' 条示例数据，你自己的记录保留不变。');
+}
+function addRecord(){
+  const note = $('note').value.trim();
+  if (!note){ setLive('先填写观察文字再添加记录。'); $('note').focus(); return; }
+  const now = new Date();
+  records.push({
+    id: String(Date.now()) + '-' + Math.random().toString(36).slice(2),
+    iso: now.toISOString(),
+    time: now.toLocaleTimeString('zh-CN', {hour12: false}),
+    period: PERIODS.includes($('period').value) ? $('period').value : suggestPeriod(),
+    scene: SCENES.includes($('scene').value) ? $('scene').value : '其他',
+    source: mode === 'mic' ? '麦克风' : '合成',
+    level: lastLevel,
+    note: note.slice(0, 120)
+  });
+  $('note').value = '';
+  renderRecords(); render();
+  setLive('已添加 1 条记录（时段 ' + records[records.length - 1].period + ' · 场景 ' + records[records.length - 1].scene + '）。');
+}
+
+/* ========== 导出 ========== */
+// CSV 单元格：去换行 + 公式注入防护（= + - @ 与制表符开头加前导单引号）
+function csvCell(v){
+  let s = v == null ? '' : String(v);
+  s = s.replace(/[\r\n]+/g, ' ');
+  if (/^[=+\-@\t]/.test(s)) s = "'" + s;
+  return '"' + s.replace(/"/g, '""') + '"';
+}
+function download(name, blob){
+  const a = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+function exportCsv(){
+  const head = ['时间', '时段', '场景', '来源', '相对强度_0_100', '观察文字',
+                '是否示例数据', '数据来源与处理方法版本', '可视化规范版本', '应用版本'];
+  const rows = records.map(r => [r.time, r.period, r.scene, r.source, r.level, r.note,
+                                 r.demo ? '是（虚构演示数据）' : '否',
+                                 DATA_METHOD_VERSION, VIS_SPEC_VERSION, APP_VERSION]);
+  const lines = [head.map(csvCell).join(',')].concat(rows.map(r => r.map(csvCell).join(',')));
+  download('campus-soundscape.csv', new Blob(['\ufeff' + lines.join('\r\n')], {type: 'text/csv;charset=utf-8'}));
+  setLive('已导出 CSV：含时段、场景、来源、相对强度与文字，并附数据方法 / 规范版本与示例数据标记，不含音频。');
+}
+function exportJson(){
+  const payload = {
+    作品: '听见校园：隐私优先的声景地图',
+    版本: {
+      应用: APP_VERSION,
+      数据来源与处理方法: DATA_METHOD_VERSION,
+      可视化规范: VIS_SPEC_VERSION,
+      备注: '上述版本号的日期与公开仓库提交历史一致；修改换算公式、窗口参数或视觉规范须同步递增对应版本号'
+    },
+    生成时间: new Date().toISOString(),
+    说明: {
+      相对强度: '0–100 的相对值，由短时窗口振幅换算，未经校准，不是分贝，不构成噪声合规或健康影响结论',
+      来源: '合成样例或本机麦克风实时分析；原始音频不保存、不上传；不识别或推断说话者身份',
+      处理方法: 'AnalyserNode fftSize=1024；x_i=(b_i-128)/128；RMS=sqrt((1/N)Σx_i²)，N=1024（约 21–23 ms）；相对强度=clamp(round(RMS×280),0,100)',
+      阈值: {低: '0–' + (T_LOW - 1), 中: T_LOW + '–' + (T_HIGH - 1), 高: T_HIGH + '–100', 备注: '仅为演示规则，非声学标准'},
+      示例数据: '标记为 true 的记录为团队虚构的演示数据，不来自真实观测，不得用于任何结论'
+    },
+    记录: records.map(r => ({
+      时间: r.time, ISO时间: r.iso, 时段: r.period, 场景: r.scene,
+      来源: r.source, 相对强度: r.level, 观察文字: r.note,
+      是否示例数据: !!r.demo
+    }))
+  };
+  download('campus-soundscape.json', new Blob([JSON.stringify(payload, null, 2)], {type: 'application/json;charset=utf-8'}));
+  setLive('已导出 JSON：含版本、处理方法与示例数据标记的结构化记录，同样不含音频。');
+}
+
+/* ========== 选项卡 ========== */
+function selectTab(name){
+  tab = name;
+  ['rt', 'rec', 'scn'].forEach(k => {
+    $('tab-' + k).setAttribute('aria-selected', String(k === name));
+    $('panel-' + k).hidden = (k !== name);
+  });
+  render();
+}
+
+/* ========== 作品说明抽屉 ========== */
+let lastFocus = null;
+function openDrawer(){
+  lastFocus = document.activeElement;
+  $('scrim').hidden = false;
+  $('drawer').hidden = false;
+  $('closeInfo').focus();
+}
+function closeDrawer(){
+  $('scrim').hidden = true;
+  $('drawer').hidden = true;
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
+
+/* ========== 事件绑定 ========== */
+$('sample').onclick = startSample;
+$('mic').onclick = startMic;
+$('stop').onclick = () => stopAll('');
+$('stopMic').onclick = () => stopAll('');
+$('add').onclick = addRecord;
+$('note').addEventListener('keydown', e => { if (e.key === 'Enter') addRecord(); });
+$('clear').onclick = () => { records = []; renderRecords(); render(); setLive('已清空本地记录。'); };
+$('exportCsv').onclick = exportCsv;
+$('exportJson').onclick = exportJson;
+$('loadDemo').onclick = loadDemo;
+$('clearDemo').onclick = clearDemo;
+$('openInfo').onclick = openDrawer;
+$('closeInfo').onclick = closeDrawer;
+$('scrim').onclick = closeDrawer;
+$('privacyJump').onclick = () => {
+  $('privacyPanel').scrollIntoView({block: 'center'});
+  const d = document.querySelector('details.pb-more');
+  if (d) d.open = true;
+};
+['rt', 'rec', 'scn'].forEach(k => {
+  $('tab-' + k).onclick = () => selectTab(k);
+  // 左右方向键在选项卡间移动
+  $('tab-' + k).addEventListener('keydown', e => {
+    const order = ['rt', 'rec', 'scn'];
+    const i = order.indexOf(k);
+    let j = -1;
+    if (e.key === 'ArrowRight') j = (i + 1) % 3;
+    if (e.key === 'ArrowLeft') j = (i + 2) % 3;
+    if (j >= 0){ e.preventDefault(); selectTab(order[j]); $('tab-' + order[j]).focus(); }
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !$('drawer').hidden) closeDrawer();
+});
+window.addEventListener('resize', render);
+window.addEventListener('beforeunload', () => stopAll(''));
+
+/* ========== 初始化 ========== */
+$('period').value = suggestPeriod();
+renderRecords();
+renderSceneStats([]);
+selectTab('rt');
+startSample();
+</script>
+</body>
+</html>
